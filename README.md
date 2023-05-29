@@ -1,8 +1,8 @@
-# Collaborative Whiteboard Made with Go & Next.js
+# Collaborative Markdown Editor Made with Go & Next.js
 
-A collaborative whiteboard made with Go and Next.js. This project is a work in progress. This projects aims to achieve the following:
+A collaborative markdown editor made with Go and Next.js. This project is a work in progress. This projects aims to achieve the following:
 
-- Create a whiteboard that can be drawn on by multiple users
+- Create a document that can be edited by multiple users
 
 - Create a chatroom that can be used by multiple users
 
@@ -10,7 +10,7 @@ A collaborative whiteboard made with Go and Next.js. This project is a work in p
 
 - Create a database that stores user information
 
-- Create a database that stores whiteboard information
+- Create a database that stores document information
 
 - Create a database that stores chatroom information
 
