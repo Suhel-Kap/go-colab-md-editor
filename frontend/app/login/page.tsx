@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Login() {
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
@@ -6,7 +8,7 @@ export default function Login() {
           <h1 className="text-2xl text-red-400 font-semibold font-sans">
             Login
           </h1>
-          <div className="flex items-center justify-center p-5">
+          <div className="flex items-center justify-center p-2">
             <input
               className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
               type="email"
@@ -15,7 +17,7 @@ export default function Login() {
               required
             />
           </div>
-          <div className="flex items-center justify-center p-5">
+          <div className="flex items-center justify-center p-2">
             <input
               className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
               type="password"
@@ -31,6 +33,10 @@ export default function Login() {
           </div>
         </div>
       </form>
+
+      <p>
+        Don't have an account? <Link href="/register" className="underline text-red-400">Register</Link>
+      </p>
     </main>
   );
 }
