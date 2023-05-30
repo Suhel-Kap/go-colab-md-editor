@@ -3,6 +3,7 @@ module github.com/Suhel-Kap/go-colab-md-editor/backend
 go 1.19
 
 require (
+	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.0
 	github.com/google/uuid v1.3.0
 	github.com/joho/godotenv v1.5.1

@@ -8,6 +8,7 @@ import (
 	"github.com/Suhel-Kap/go-colab-md-editor/backend/pkg/config"
 	"github.com/Suhel-Kap/go-colab-md-editor/backend/pkg/internal/database"
 	"github.com/Suhel-Kap/go-colab-md-editor/backend/pkg/models"
+	"github.com/Suhel-Kap/go-colab-md-editor/backend/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
@@ -30,6 +31,14 @@ func RegisterController(c *gin.Context) {
 		})
 	}
 
+	if valid := utils.ValidateEmail(registrationData.Email); !valid {
+		log.Printf("Invalid email %s", registrationData.Email)
+		c.JSON(http.StatusNotAcceptable, gin.H{
+			"error": "Invalid email",
+		})
+		return
+	}
+
 	hashedPw, err := bcrypt.GenerateFromPassword([]byte(registrationData.Password), bcrypt.DefaultCost)
 	if err != nil {
 		log.Fatalf("Error hashing password: %s", err)
@@ -44,14 +53,15 @@ func RegisterController(c *gin.Context) {
 	})
 
 	if err != nil {
-		log.Fatalf("Couldn't register user: %s", err)
+		log.Printf("Couldn't register user: %s", err)
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
 		return
 	}
 
+	c.SetCookie("api_key", user.ApiKey, 30*24*60*60, "/", "", false, true)
 	c.JSON(http.StatusAccepted, gin.H{
-		"user": models.DbUserToUser(user),
+		"user": models.DbUserRowToUser(user),
 	})
 }

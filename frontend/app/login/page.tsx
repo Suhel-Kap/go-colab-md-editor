@@ -1,9 +1,40 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Login() {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("http://localhost:8000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+        credentials: "include",
+      });
+      const json = await res.json();
+      console.log(json);
+      console.log(res.body);
+      setForm({
+        email: "",
+        password: "",
+      });
+    } catch (err) {
+      console.log(err);
+      setError("Something went wrong");
+    }
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="flex flex-col items-center justify-center p-5">
           <h1 className="text-2xl text-red-400 font-semibold font-sans">
             Login
@@ -15,6 +46,9 @@ export default function Login() {
               name="email"
               placeholder="Enter your email"
               required
+              onChange={(e) => {
+                setForm({ ...form, email: e.target.value });
+              }}
             />
           </div>
           <div className="flex items-center justify-center p-2">
@@ -24,8 +58,16 @@ export default function Login() {
               name="password"
               placeholder="Enter your password"
               required
+              onChange={(e) => {
+                setForm({ ...form, password: e.target.value });
+              }}
             />
           </div>
+          {error && (
+            <div className="flex items-center justify-center p-2">
+              <p className="text-red-400">{error}</p>
+            </div>
+          )}
           <div className="flex items-center justify-center p-5 w-full">
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
               Login
@@ -35,7 +77,10 @@ export default function Login() {
       </form>
 
       <p>
-        Don't have an account? <Link href="/register" className="underline text-red-400">Register</Link>
+        Don't have an account?{" "}
+        <Link href="/register" className="underline text-red-400">
+          Register
+        </Link>
       </p>
     </main>
   );

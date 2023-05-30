@@ -27,3 +27,9 @@ VALUES
     updated_at,
     api_key
 ;
+
+-- name: GetUserByEmail :one
+
+SELECT *
+FROM users
+WHERE email = $1;
