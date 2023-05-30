@@ -25,6 +25,7 @@ func SetupRouter() *gin.Engine {
 	r.GET("/healthz", controllers.HealthzController)
 	r.POST("/register", controllers.RegisterController)
 	r.POST("/login", controllers.LoginController)
+	r.POST("/logout", controllers.LogoutController)
 
 	protected := r.Group("/app")
 	protected.Use(AuthMiddleware())

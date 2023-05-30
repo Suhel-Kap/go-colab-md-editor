@@ -1,8 +1,10 @@
 "use client";
 import Link from "next/link";
+import { useRouter} from "next/navigation"
 import { useState } from "react";
 
 export default function Register() {
+  const router = useRouter();
   const [error, setError] = useState("");
   const [form, setForm] = useState({
     username: "",
@@ -34,9 +36,10 @@ export default function Register() {
         password: "",
         confirmPassword: "",
       });
+      router.push("/app");
     } catch (err) {
       console.log(err);
-      setError("Something went wrong");
+      setError("An error occurred");
     }
   };
   return (

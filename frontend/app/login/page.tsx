@@ -1,8 +1,10 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Login() {
+  const router = useRouter();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -26,6 +28,7 @@ export default function Login() {
         email: "",
         password: "",
       });
+      router.push("/app");
     } catch (err) {
       console.log(err);
       setError("Something went wrong");
